@@ -1,0 +1,2 @@
+def displayStartMenu():
+    print("welcome")
