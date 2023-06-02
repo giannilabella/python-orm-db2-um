@@ -9,7 +9,7 @@ R(
     telefono_empresa_rut, telefono_numero,
 
     //propietario
-    propietario_id, propietario_tipo, propietario_persona_dni, propietario_empresa_rut,
+    propietario_id, propietario_persona_dni, propietario_empresa_rut,
 
     //cuenta
     cuenta_numero, cuenta_creacion, cuenta_saldo, cuenta_propietario_id,

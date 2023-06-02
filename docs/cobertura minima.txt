@@ -16,8 +16,7 @@ G={
     //telefono_empresa
     telefono_numero -> telefono_empresa_rut,
 
-    //propietario
-    propietario_id -> propietario_tipo, 
+    //propietario 
     propietario_id -> propietario_persona_dni, 
     propietario_id -> propietario_empresa_rut,
     propietario_persona_dni -> propietario_id,
