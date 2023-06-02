@@ -1,0 +1,54 @@
+F={
+    //persona
+    persona_dni_asociado -> {persona_nombre_1, persona_nombre_2, persona_direccion, persona_apellido_1, persona_apellido_2, persona_dni, persona_mail, persona_celular},
+    
+    //empresa
+    empresa_rut -> {empresa_nombre, empresa_direccion},
+
+    //telefono_empresa
+    telefono_numero -> telefono_empresa_rut,
+
+    //propietario
+    propietario_id -> {propietario_tipo, propietario_persona_dni, propietario_empresa_rut},
+    propietario_persona_dni -> propietario_id,
+    propietario_empresa_rut -> propietario_id,
+
+    //cuenta
+    cuenta_numero -> {cuenta_creacion, cuenta_saldo, cuenta_propietario_id},
+    cuenta_propietario_id -> cuenta_numero,
+
+    //carga
+    cuenta_fecha_y_hora -> cuenta_importe,
+    carga_numero_cuenta -> cuenta_fecha_y_hora,
+
+    //vehiculo
+    vehiculo_matricula -> {vehiculo_marca, vehiculo_modelo, vehiculo_color, vehiculo_id_rfid, vehiculo_tipo},
+    vehiculo_id_rfid -> vehiculo_matricula,
+
+    //propietario_vehiculo as prop_veh
+    //none
+
+    //tipo_vehiculo
+    //none
+
+    //tarifa
+    tarifa_tipo_vehiculo_tipo -> tarifa_fecha,
+    tarifa_fecha -> tarifa_valor,
+
+    //peaje
+    peaje_nombre -> {peaje_ruta, peaje_kilometro, peaje_telefono, peaje_cantidad_ventanillas},
+
+    //ventanilla
+    ventanilla_peaje_nombre -> ventanilla_numero,
+    ventanilla_numero -> ventanilla_es_rfid,
+
+    //debito
+    {debito_vehiculo_matricula, debito_ventanilla_numero, debito_fecha_y_hora} -> {debito_cuenta_numero,debito_importe},
+    {debito_vehiculo_matricula, debito_cuenta_numero,     debito_fecha_y_hora} -> {debito_ventanilla_numero,debito_importe},
+    {debito_cuenta_numero,      debito_ventanilla_numero, debito_fecha_y_hora} -> {debito_vehiculo_matricula,debito_importe},
+
+
+    //bonificacion 
+    {bonificacion_cuenta_numero, bonificacion_fecha_otorgo, bonificacion_descuento, bonificacion_motivo} -> {bonificacion_peaje_nombre, bonificacion_fecha_renovacion}
+    {bonificacion_peaje_nombre, bonificacion_fecha_otorgo, bonificacion_descuento, bonificacion_motivo} -> {bonificacion_cuenta_numero, bonificacion_fecha_renovacion}
+}
