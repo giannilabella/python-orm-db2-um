@@ -1,10 +1,4 @@
 G={
-    /*****************************
-    *  Dependencias Funcionales  *
-    *          Evidentes         *
-    *****************************/
-
-    //persona
     persona_dni -> persona_nombre_1, 
     persona_dni -> persona_nombre_2, 
     persona_dni -> persona_direccion, 
@@ -12,60 +6,43 @@ G={
     persona_dni -> persona_apellido_2, 
     persona_dni -> persona_mail, 
     persona_dni -> persona_celular,
-    // dependencia redundante: perosna_dni_asociado -> persona_dni,
     
-    //empresa
     empresa_rut -> empresa_nombre, 
     empresa_rut -> empresa_direccion,
 
-    //telefono_empresa
     telefono_numero -> telefono_empresa_rut,
 
-    //propietario 
     propietario_id -> propietario_persona_dni, 
     propietario_id -> propietario_empresa_rut,
-    // dependencia redundante: propietario_persona_dni -> propietario_id,
-    // dependencia redundante: propietario_empresa_rut -> propietario_id,
 
-    //cuenta
     cuenta_numero -> cuenta_creacion, 
     cuenta_numero -> cuenta_saldo, 
     cuenta_numero -> cuenta_propietario_id,
-    // dependencia redundante: cuenta_propietario_id -> cuenta_numero,
+    cuenta_propietario_id -> cuenta_numero,
 
-    //carga
     cuenta_fecha_y_hora -> cuenta_importe,
     carga_numero_cuenta -> cuenta_fecha_y_hora,
 
-    //vehiculo
     vehiculo_matricula -> vehiculo_marca, 
     vehiculo_matricula -> vehiculo_modelo, 
     vehiculo_matricula -> vehiculo_color, 
     vehiculo_matricula -> vehiculo_id_rfid, 
     vehiculo_matricula -> vehiculo_tipo,
-    // dependencia redundante: vehiculo_id_rfid -> vehiculo_matricula,
+    vehiculo_id_rfid -> vehiculo_matricula,
 
-    //propietario_vehiculo as prop_veh
-    //none
 
-    //tipo_vehiculo
-    //none
 
-    //tarifa
     tarifa_tipo_vehiculo_tipo -> tarifa_fecha,
     tarifa_fecha -> tarifa_valor,
 
-    //peaje
     peaje_nombre -> peaje_ruta, 
     peaje_nombre -> peaje_kilometro, 
     peaje_nombre -> peaje_telefono, 
     peaje_nombre -> peaje_cantidad_ventanillas,
 
-    //ventanilla
     ventanilla_peaje_nombre -> ventanilla_numero,
     ventanilla_numero -> ventanilla_es_rfid,
 
-    //debito
     {debito_vehiculo_matricula, debito_ventanilla_numero, debito_fecha_y_hora} -> debito_cuenta_numero,
     {debito_vehiculo_matricula, debito_ventanilla_numero, debito_fecha_y_hora} -> debito_importe,
     {debito_vehiculo_matricula, debito_cuenta_numero,     debito_fecha_y_hora} -> debito_ventanilla_numero,
@@ -74,58 +51,38 @@ G={
     {debito_cuenta_numero,      debito_ventanilla_numero, debito_fecha_y_hora} -> debito_importe,
 
 
-    //bonificacion 
     {bonificacion_cuenta_numero, bonificacion_fecha_otorgo, bonificacion_descuento, bonificacion_motivo} -> bonificacion_peaje_nombre, 
     {bonificacion_cuenta_numero, bonificacion_fecha_otorgo, bonificacion_descuento, bonificacion_motivo} -> bonificacion_fecha_renovacion,
     {bonificacion_peaje_nombre, bonificacion_fecha_otorgo, bonificacion_descuento, bonificacion_motivo} -> bonificacion_cuenta_numero, 
     {bonificacion_peaje_nombre, bonificacion_fecha_otorgo, bonificacion_descuento, bonificacion_motivo} -> bonificacion_fecha_renovacion,
 
-    /*****************************
-    *  Dependencias Funcionales  *
-    *       por foreign key      *
-    *****************************/
-
-    //persona-persona
     persona_dni_asociado -> persona_dni,
 
-    //propietario-persona
     propietario_persona_dni -> persona_dni,
 
-    //propietario-empresa
     propietario_empresa_rut -> empresa_rut,
 
-    //propietario-cuenta
     cuenta_propietario_id -> propietario_id,
 
-    //propietario-vehiculo as prop_veh
     prop_veh_id_prop -> propietario_id,
     prop_veh_matricula -> vehiculo_matricula,
 
-    //carga-cuenta
     carga_numero_cuenta - cuenta_numero,
 
-    //vehiculo-tipo_vehiculo
     vehiculo_tipo -> tipo_vehiculo_tipo,
 
-    //tarifa-tipo_vehiculo
     tarifa_tipo_vehiculo_tipo -> tipo_vehiculo_tipo,
 
-    //peaje-ventanilla
     ventanilla_peaje_nombre -> peaje_nombre,
 
-    //debito-cuenta
     debito_cuenta_numero -> cuenta_numero,
 
-    //debito-vehiculo
     debito_vehiculo_matricula -> vehiculo_matricula,
 
-    //debito-ventanilla
     debito_ventanilla_numero -> ventanilla_numero,
 
-    //bonificacion-cuenta
     bonificacion_cuenta_numero -> cuenta_numero,
 
-    //bonificacion-peaje
     bonificacion_peaje_nombre -> peaje_nombre
 
 }

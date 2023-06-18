@@ -5,7 +5,8 @@ F={
     *****************************/
 
     //persona
-    persona_dni_asociado -> {persona_nombre_1, persona_nombre_2, persona_direccion, persona_apellido_1, persona_apellido_2, persona_dni, persona_mail, persona_celular},
+    persona_dni -> {persona_nombre_1, persona_nombre_2, persona_direccion, persona_apellido_1, persona_apellido_2, persona_dni, persona_mail, persona_celular,persona_dni_asociado},
+    persona_dni_asociado -> persona_dni,
     
     //empresa
     empresa_rut -> {empresa_nombre, empresa_direccion},
