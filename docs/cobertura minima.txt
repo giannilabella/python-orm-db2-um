@@ -60,8 +60,7 @@ G={
     peaje_nombre -> peaje_cantidad_ventanillas,
 
     //ventanilla
-    ventanilla_peaje_nombre -> ventanilla_numero,
-    ventanilla_numero -> ventanilla_es_rfid,
+    {ventanilla_peaje_nombre,ventanilla_numero} -> ventanilla_es_rfid,
 
     //debito
     {debito_vehiculo_matricula, debito_ventanilla_numero, debito_fecha_y_hora} -> debito_cuenta_numero,
