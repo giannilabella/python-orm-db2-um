@@ -12,7 +12,7 @@ G={
     persona_dni -> persona_apellido_2, 
     persona_dni -> persona_mail, 
     persona_dni -> persona_celular,
-    // dependencia redundante: perosna_dni_asociado -> persona_dni,
+    persona_dni -> persona_dni_asociado
     
     //empresa
     empresa_rut -> empresa_nombre, 
@@ -24,14 +24,14 @@ G={
     //propietario 
     propietario_id -> propietario_persona_dni, 
     propietario_id -> propietario_empresa_rut,
-    // dependencia redundante: propietario_persona_dni -> propietario_id,
-    // dependencia redundante: propietario_empresa_rut -> propietario_id,
+    propietario_persona_dni -> propietario_id,
+    propietario_empresa_rut -> propietario_id,
 
     //cuenta
     cuenta_numero -> cuenta_creacion, 
     cuenta_numero -> cuenta_saldo, 
     cuenta_numero -> cuenta_propietario_id,
-    // dependencia redundante: cuenta_propietario_id -> cuenta_numero,
+    cuenta_propietario_id -> cuenta_numero,
 
     //carga
     cuenta_fecha_y_hora -> cuenta_importe,
@@ -43,7 +43,7 @@ G={
     vehiculo_matricula -> vehiculo_color, 
     vehiculo_matricula -> vehiculo_id_rfid, 
     vehiculo_matricula -> vehiculo_tipo,
-    // dependencia redundante: vehiculo_id_rfid -> vehiculo_matricula,
+    vehiculo_id_rfid -> vehiculo_matricula,
 
     //propietario_vehiculo as prop_veh
     //none
