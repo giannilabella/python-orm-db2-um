@@ -15,7 +15,7 @@ R(
     cuenta_numero, cuenta_creacion, cuenta_saldo, cuenta_propietario_id,
 
     //carga
-    carga_numero_cuenta, cuenta_fecha_y_hora, cuenta_importe,
+    carga_numero_cuenta, carga_fecha_y_hora, carga_importe,
 
     //vehiculo
     vehiculo_matricula, vehiculo_marca, vehiculo_modelo, vehiculo_color, vehiculo_id_rfid, vehiculo_tipo,

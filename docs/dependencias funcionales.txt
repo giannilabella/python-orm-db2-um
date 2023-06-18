@@ -24,8 +24,7 @@ F={
     cuenta_propietario_id -> cuenta_numero,
 
     //carga
-    cuenta_fecha_y_hora -> cuenta_importe,
-    carga_numero_cuenta -> cuenta_fecha_y_hora,
+    {carga_fecha_y_hora,carga_numero_cuenta} -> carga_importe,
 
     //vehiculo
     vehiculo_matricula -> {vehiculo_marca, vehiculo_modelo, vehiculo_color, vehiculo_id_rfid, vehiculo_tipo},
@@ -38,8 +37,7 @@ F={
     //none
 
     //tarifa
-    tarifa_tipo_vehiculo_tipo -> tarifa_fecha,
-    tarifa_fecha -> tarifa_valor,
+    {tarifa_tipo_vehiculo_tipo,tarifa_fecha} -> tarifa_valor,
 
     //peaje
     peaje_nombre -> {peaje_ruta, peaje_kilometro, peaje_telefono, peaje_cantidad_ventanillas},
