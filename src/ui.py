@@ -20,8 +20,8 @@ def displayMenu(menu_select)->None:
             print(
                 "******************************************Welcome User********************************************\n"+
                 "1- Consultar Datos\n"+
-                "2- Modificar Datos Preexistentes\n"+
-                "\n\n\n\n**************************************************************************************************\n"
+                "2- Modificar Datos Preexistentes\n\n\n\n\n\n\n"+
+                "\n**************************************************************************************************\n"
                 )
             input_control("menu_de_inicio")
         case "menu_de_modificacion":
@@ -32,7 +32,9 @@ def displayMenu(menu_select)->None:
                 "3- Agregar Cuenta               9- Modificar Cuenta            15- Agregar tipo de vehículo\n"+
                 "4- Agregar Vehículo             10- Modificar Vehículo         16- Agregar tarifa\n"+
                 "5- Agregar Peaje                11- Modificar Peaje            17- Modificar tipo de vehículo\n"+
-                "6- Agregar Bonificación         12- Modificar Bonificación     18- Modificar tarifa\n"+
+                "6- Agregar Bonificación         12- Modificar Bonificación     18- Modificar tarifa\n\n"+
+                "--------------------------------------------------------------------------------------------------\n"+
+                "0- retroceder  |\n"+
                 "**************************************************************************************************\n"
                 )
             input_control("menu_de_modificacion")
@@ -40,8 +42,10 @@ def displayMenu(menu_select)->None:
             print(
                 "*****Consultar Datos******************************************************************************\n"+
                 "1- Listado de propietarios y sus vehículos\n"+
-                "2- Listado de cuentas con su titular y sus vehículos asociados\n"+
-                "\n\n\n\n**************************************************************************************************\n"
+                "2- Listado de cuentas con su titular y sus vehículos asociados\n\n\n\n\n"+
+                "--------------------------------------------------------------------------------------------------\n"+
+                "0- retroceder  |\n"+
+                "\n**************************************************************************************************\n"
                 )
             input_control("menu_de_modificacion")
 
@@ -49,7 +53,7 @@ def input_control(input_set)->None:
     match (input_set):
         case "menu_de_inicio":
             inp:str = input("Ingrese el numero que corresponda a la acción que desea tomar: ")
-            match(inp):
+            match(inp):    
                 case "1":
                     displayMenu("menu_de_consulta")
                 case "2":
@@ -60,6 +64,8 @@ def input_control(input_set)->None:
         case "menu_de_modificacion":
             inp:str = input("Ingrese el numero que corresponda a la acción que desea tomar: ")
             match(inp):
+                case "0":
+                    displayMenu("menu_de_inicio")
                 case "1":
                     agregar_persona()
                 case "2":
@@ -100,7 +106,10 @@ def input_control(input_set)->None:
                     print("Entrada no valida")
         
         case "menu_de_consulta":
-            pass
+            inp:str = input("Ingrese el numero que corresponda a la acción que desea tomar: ")
+            match (inp):
+                case "0":
+                    displayMenu("menu_de_inicio")
 
 
 if __name__ == "__main__":
