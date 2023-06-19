@@ -59,7 +59,7 @@ def input_control(input_set)->None:
                 case "2":
                     displayMenu("menu_de_modificacion")
                 case _:
-                    print("entrada no valida")
+                    input("Entrada no valida,presione enter para continuar")
 
         case "menu_de_modificacion":
             inp:str = input("Ingrese el numero que corresponda a la acción que desea tomar: ")
@@ -103,13 +103,20 @@ def input_control(input_set)->None:
                 case "18":
                     modificar_tarifa()
                 case _:
-                    print("Entrada no valida")
+                    input("Entrada no valida,presione enter para continuar")
         
         case "menu_de_consulta":
             inp:str = input("Ingrese el numero que corresponda a la acción que desea tomar: ")
             match (inp):
                 case "0":
                     displayMenu("menu_de_inicio")
+                case "1":
+                    Listado_de_propietarios_y_sus_vehículos()
+                case "2":
+                    Listado_de_cuentas_con_su_titular_y_sus_vehículos_asociados()
+                case _:
+                    input("Entrada no valida,presione enter para continuar")
+
     displayMenu("menu_de_inicio")
 
 

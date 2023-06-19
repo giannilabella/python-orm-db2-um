@@ -220,7 +220,11 @@ def nuevo_debito():
         return
 
 
+def Listado_de_propietarios_y_sus_vehículos():
+    pass
 
+def Listado_de_cuentas_con_su_titular_y_sus_vehículos_asociados():
+    pass
 
 def modificar_persona():
     pass
