@@ -1,6 +1,6 @@
 from peewee import AutoField, FixedCharField, CharField, IntegerField, ForeignKeyField
 from src.models.basemodel import BaseModel
-from src.models.tipovehiculo import TipoVehiculo
+from src.models.tipo_vehiculo import TipoVehiculo
 
 
 class Vehiculo(BaseModel):
