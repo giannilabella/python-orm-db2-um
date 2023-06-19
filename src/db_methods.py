@@ -1,3 +1,5 @@
+from peeweeClasses import *
+
 def agregar_persona():
 
     dni:str             = input("ingrese dni (sin puntos ni guion): ")
@@ -9,25 +11,22 @@ def agregar_persona():
     mail:str            = input("ingrese e-mail: ")
     celular:str         = input("ingrese celular: ")
     
-    hay_persona_asociada:str   = input("tiene personas asociadas (y/n): ")
-    hay_persona_asociada       = hay_persona_asociada.lower()
-
-    personas_asociadas:list[str]  = []
-    if(hay_persona_asociada in ["y","yes","y/","yes/","si","si/"]):
-        tmp:str   = input("indique el numero de personas asociadas: ")
-        if (tmp.isdecimal):
-            for i in range(int(tmp)):
-                personas_asociadas.append(input("ingrese dni de persona asociada :"))
-        else:
-            input("entrada no valida, toque cualquier tecla para continuar...")
-            return
-    elif(hay_persona_asociada in ["n","no","n/","no/"]):
-        pass
-    else:
-        input("entrada no valida, toque cualquier tecla para continuar...")
+    asociad0:str   = input("ingrese dni de persona asociada")
+    try:
+        new_persona = Persona.create(
+            persona_dni      =dni,
+            persona_nombre_1  =nombre_1,
+            persona_nombre_2=nombre_2,
+            persona_direccion=direccion,
+            persona_apellido_1=apellido_1,
+            persona_apellido_2=apellido_2,
+            persona_mail=mail,
+            persona_celular =    celular,
+            persona_dni_asociado=1,)
+    except Exception:
+        input("dato no valido ingresado para algún dato pedido")
         return
-
-    #tmp:object new Persona(dni,nombre_1,nombre_2,direccion,apellido_1,apellido_2,mail,celular,personas_asociadas)
+    
 
 
 def agregar_propietario():
