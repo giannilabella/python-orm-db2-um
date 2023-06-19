@@ -1,6 +1,6 @@
 import os
 import platform
-from db_methods import *
+from src.db_methods import *
 
 def clear_console():
     match (platform.system()):

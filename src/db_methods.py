@@ -1,21 +1,20 @@
-from database import postgres_database
-from peewee import *
+from peewee import DoesNotExist
+from src.database import postgres_database
 
-from models.basemodel import *
-from models.bonificacion import *
-from models.carga import *
-from models.cuenta import *
-from models.debito import *
-from models.empresa import *
-from models.peaje import *
-from models.persona import *
-from models.propietario import *
-from models.tarifa import *
-from models.telefono import *
-from models.tipovehiculo import *
-from models.vehiculo import *
-from models.vehiculo import *
-from models.ventanilla import *
+from src.models.bonificacion import Bonificacion
+from src.models.carga import Carga
+from src.models.cuenta import Cuenta
+from src.models.debito import Debito
+from src.models.empresa import Empresa
+from src.models.peaje import Peaje
+from src.models.persona import Persona
+from src.models.propietario import Propietario
+from src.models.tarifa import Tarifa
+from src.models.telefono import Telefono
+from src.models.tipo_vehiculo import TipoVehiculo
+from src.models.vehiculo import Vehiculo
+from src.models.ventanilla import Ventanilla
+from src.models.propietario_vehiculo import PropietarioVehiculo
 
 def agregar_persona() -> None:
 
