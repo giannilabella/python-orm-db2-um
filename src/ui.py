@@ -110,6 +110,7 @@ def input_control(input_set)->None:
             match (inp):
                 case "0":
                     displayMenu("menu_de_inicio")
+    displayMenu("menu_de_inicio")
 
 
 if __name__ == "__main__":
