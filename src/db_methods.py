@@ -17,7 +17,7 @@ from models.vehiculo import *
 from models.vehiculo import *
 from models.ventanilla import *
 
-def agregar_persona():
+def agregar_persona() -> None:
 
     dni:str             = input("ingrese dni (sin puntos ni guion): ")
     nombre_1:str        = input("ingrese primer nombre: ")
@@ -30,13 +30,12 @@ def agregar_persona():
 
     hay_persona_asociada:str   = input("tiene personas asociadas (y/n): ")
     hay_persona_asociada       = hay_persona_asociada.lower()
-    asociado = None
+    asociado:object = None
 
     if(hay_persona_asociada in ["y","yes","y/","yes/","si","si/"]):
         tmp_dni:str   = input("ingrese el dni de la persona asociada: ")
         try:
-            temp_persona  = Persona.get(Persona.persona_dni==tmp_dni)
-            asociado      = temp_persona.persona_id
+            asociado  = Persona.get(Persona.persona_dni==tmp_dni)
         except DoesNotExist:
             input("No existe una persona con ese dni, presione enter para continuar...")
             return
@@ -46,7 +45,7 @@ def agregar_persona():
         return
 
     try:
-        new_persona = Persona.create(
+        new_persona:Persona = Persona.create(
             persona_dni         = dni,
             persona_nombre_1    = nombre_1,
             persona_nombre_2    = nombre_2,
@@ -56,42 +55,56 @@ def agregar_persona():
             persona_mail        = mail,
             persona_celular     = celular,
             persona_dni_asociado= asociado,
-            )
+        )
+        Propietario.create(
+            propietario_persona_id = new_persona,
+            propietario_empresa_id = None
+        )
     except Exception:
         input("dato no valido ingresado para algún dato pedido, toque enter para continuar...")
         return
     else:
         input("transacción realizada exitosamente, toque enter para continuar...")
     
-def agregar_empresa():
-    rut:str = input("Ingrese RUT (sin puntos ni guion): ")
-    nombre:str = input("Ingrese nombre: ")
-    direccion = input("Ingrese direccion: ")
+def agregar_empresa() -> None:
+    rut:str         = input("Ingrese RUT (sin puntos ni guion): ")
+    nombre:str      = input("Ingrese nombre: ")
+    direccion:str   = input("Ingrese dirección: ")
 
     try:
-        new_empresa = Empresa.create(
-            empresa_rut=rut,
-            empresa_nombre=nombre,
-            empresa_direccion=direccion
+        new_empresa:Empresa = Empresa.create(
+            empresa_rut         =   rut,
+            empresa_nombre      =   nombre,
+            empresa_direccion   =   direccion
+        )
+        Propietario.create(
+            propietario_persona_id = None,
+            propietario_empresa_id = new_empresa
+        )
+    except Exception:
+        input("Dato no valido ingresado para algún dato pedido, presione enter para continuar...")
+        return
+
+def agregar_telefono() -> None:
+    numero: str      = input("Ingrese numero de telefono: ")
+    empresa_rut: str = input("Ingrese RUT de empresa asociada: ")
+    empresa          = None
+    try:
+        empresa:Empresa  = Empresa.get(Empresa.empresa_rut==empresa_rut)
+    except DoesNotExist:
+        input("No existe una empresa con ese rut, presione enter para continuar...")
+        return
+
+    try:
+        Telefono.create(
+            telefono_numero      = numero,
+            telefono_empresa_rut = empresa
         )
     except Exception:
         input("Dato no valido ingresado para algún dato pedido")
         return
 
-def agregar_telefono():
-    numero = input("Ingrese numero de telefono: ")
-    empresa_rut = input("Ingrese RUT de empresa asociada: ")
-
-    try:
-        new_telefono = Telefono.create(
-            telefono_numero=numero,
-            telefono_empresa_rut=empresa_rut
-        )
-    except Exception:
-        input("Dato no valido ingresado para algún dato pedido")
-        return
-
-def agregar_propietario():
+def agregar_propietario() -> None:
     persona_id = input("Ingrese ID de persona: ")
     empresa_id = input("Ingrese ID de empresa: ")
 
@@ -104,7 +117,7 @@ def agregar_propietario():
         input("Dato no valido ingresado para algún dato pedido")
         return
 
-def agregar_cuenta():
+def agregar_cuenta() -> None:
     creacion = input("Ingrese fecha de creacion (YYYY-MM-DD): ")
     saldo = input("Ingrese saldo: ")
     propietario_id = input("Ingrese ID de propietario: ")
@@ -119,7 +132,7 @@ def agregar_cuenta():
         input("Dato no valido ingresado para algún dato pedido")
         return
 
-def nueva_carga():
+def nueva_carga() -> None:
     cuenta_numero = input("Ingrese numero de cuenta: ")
     fecha_y_hora = input("Ingrese fecha y hora (YYYY-MM-DD HH:MM:SS): ")
     importe = input("Ingrese importe: ")
@@ -134,7 +147,7 @@ def nueva_carga():
         input("Dato no valido ingresado para algún dato pedido")
         return
 
-def agregar_tipo_vehiculo():
+def agregar_tipo_vehiculo() -> None:
     tipo = input("Ingrese tipo de vehiculo: ")
 
     try:
@@ -145,7 +158,7 @@ def agregar_tipo_vehiculo():
         input("Dato no valido ingresado para algún dato pedido")
         return
 
-def agregar_vehiculo():
+def agregar_vehiculo() -> None:
     matricula = input("Ingrese matricula: ")
     marca = input("Ingrese marca: ")
     modelo = input("Ingrese modelo: ")
@@ -166,7 +179,7 @@ def agregar_vehiculo():
         input("Dato no valido ingresado para algún dato pedido")
         return
 
-def agregar_tarifa():
+def agregar_tarifa() -> None:
     tipo_vehiculo_id = input("Ingrese ID de tipo de vehiculo: ")
     fecha = input("Ingrese fecha (YYYY-MM-DD): ")
     valor = input("Ingrese valor: ")
@@ -181,7 +194,7 @@ def agregar_tarifa():
         input("Dato no valido ingresado para algún dato pedido")
         return
 
-def agregar_peaje():
+def agregar_peaje() -> None:
     nombre = input("Ingrese nombre de peaje: ")
     ruta = input("Ingrese ruta: ")
     kilometro = input("Ingrese kilometro: ")
@@ -200,7 +213,7 @@ def agregar_peaje():
         input("Dato no valido ingresado para algún dato pedido")
         return
 
-def agregar_ventanilla():
+def agregar_ventanilla() -> None:
     peaje_id = input("Ingrese ID de peaje: ")
     numero = input("Ingrese numero de ventanilla: ")
     es_rfid = input("Es RFID (True/False): ")
@@ -215,7 +228,7 @@ def agregar_ventanilla():
         input("Dato no valido ingresado para algún dato pedido")
         return
 
-def agregar_bonificacion():
+def agregar_bonificacion() -> None:
     cuenta_numero = input("Ingrese numero de cuenta: ")
     fecha_otorgo = input("Ingrese fecha de otorgamiento (YYYY-MM-DD): ")
     descuento = input("Ingrese descuento (%): ")
@@ -236,7 +249,7 @@ def agregar_bonificacion():
         input("Dato no valido ingresado para algún dato pedido")
         return
 
-def nuevo_debito():
+def nuevo_debito() -> None:
     vehiculo_id = input("Ingrese ID de vehiculo: ")
     peaje_id = input("Ingrese ID de peaje: ")
     ventanilla_numero = input("Ingrese numero de ventanilla: ")
@@ -256,32 +269,32 @@ def nuevo_debito():
         return
 
 
-def Listado_de_propietarios_y_sus_vehículos():
+def Listado_de_propietarios_y_sus_vehículos() -> None:
     pass
 
-def Listado_de_cuentas_con_su_titular_y_sus_vehículos_asociados():
+def Listado_de_cuentas_con_su_titular_y_sus_vehículos_asociados() -> None:
     pass
 
-def modificar_persona():
+def modificar_persona() -> None:
     pass
 
-def modificar_propietario():
+def modificar_propietario() -> None:
     pass
 
-def modificar_cuenta():
+def modificar_cuenta() -> None:
     pass
 
-def modificar_vehiculo():
+def modificar_vehiculo() -> None:
     pass
 
-def modificar_peaje():
+def modificar_peaje() -> None:
     pass
 
-def modificar_bonificacion():
+def modificar_bonificacion() -> None:
     pass
 
-def modificar_tipo_de_vehiculo():
+def modificar_tipo_de_vehiculo() -> None:
     pass
 
-def modificar_tarifa():
+def modificar_tarifa() -> None:
     pass
