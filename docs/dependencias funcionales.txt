@@ -46,9 +46,9 @@ F={
     {ventanilla_peaje_nombre,ventanilla_numero} -> ventanilla_es_rfid,
 
     //debito
-    {debito_vehiculo_matricula, debito_ventanilla_numero, debito_fecha_y_hora} -> {debito_cuenta_numero,debito_importe},
-    {debito_vehiculo_matricula, debito_cuenta_numero,     debito_fecha_y_hora} -> {debito_ventanilla_numero,debito_importe},
-    {debito_cuenta_numero,      debito_ventanilla_numero, debito_fecha_y_hora} -> {debito_vehiculo_matricula,debito_importe},
+    {debito_vehiculo_matricula, debito_ventanilla_numero, debioto_peaje_nombre, debito_fecha_y_hora} -> {debito_cuenta_numero,debito_importe},
+    {debito_vehiculo_matricula, debito_cuenta_numero,     debito_fecha_y_hora} -> {debito_ventanilla_numero,debioto_peaje_nombre,debito_importe},
+    {debito_cuenta_numero,      debito_ventanilla_numero, debioto_peaje_nombre, debito_fecha_y_hora} -> {debito_vehiculo_matricula,debito_importe},
 
 
     //bonificacion 
@@ -95,7 +95,7 @@ F={
     debito_vehiculo_matricula -> vehiculo_matricula,
 
     //debito-ventanilla
-    debito_ventanilla_numero -> ventanilla_numero,
+    {debito_ventanilla_numero,peaje_nombre} -> ventanilla_numero,
 
     //bonificacion-cuenta
     bonificacion_cuenta_numero -> cuenta_numero,

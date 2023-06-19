@@ -1,0 +1,35 @@
+K(  
+    //telefono_empresa
+    telefono_id,
+
+    //propietario
+    propietario_id,
+
+    //cuenta
+    cuenta_numero,
+
+    //carga
+    carga_id,
+
+    //vehiculo
+    vehiculo_id,
+    
+    //propietario_vehiculo as prop_veh
+    prop_veh_id_prop, prop_veh_id,
+
+    //tarifa
+    tarifa_id,
+
+    //peaje
+    peaje_id,
+
+    //ventanilla
+    ventanilla_numero,
+
+    //debito
+    debito_id,
+
+    //bonificacion 
+    bonificacion_id
+    
+)

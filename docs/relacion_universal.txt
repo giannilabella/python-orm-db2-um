@@ -36,7 +36,7 @@ R(
     ventanilla_peaje_nombre, ventanilla_numero, ventanilla_es_rfid,
 
     //debito
-    debito_vehiculo_matricula, debito_ventanilla_numero, debito_cuenta_numero, debito_fecha_y_hora, debito_importe,
+    debito_vehiculo_matricula, debito_ventanilla_numero, debioto_peaje_nombre,debito_cuenta_numero, debito_fecha_y_hora, debito_importe,
 
     //bonificacion 
     bonificacion_cuenta_numero, bonificacion_peaje_nombre, bonificacion_fecha_renovacion, bonificacion_fecha_otorgo, bonificacion_descuento, bonificacion_motivo
