@@ -27,7 +27,7 @@ def displayMenu(menu_select)->None:
         case "menu_de_modificacion":
             print(
                 "*****Modificar Datos******************************************************************************\n"+
-                "1- Agregar Persona              7- Modificar Persona           13- Nuevo deposito\n"+
+                "1- Agregar Persona              7- Modificar Persona           13- Nuevo debito\n"+
                 "2- Agregar Propietario          8- Modificar Propietario       14- Nueva carga\n"+
                 "3- Agregar Cuenta               9- Modificar Cuenta            15- Agregar tipo de vehículo\n"+
                 "4- Agregar Vehículo             10- Modificar Vehículo         16- Agregar tarifa\n"+
@@ -91,7 +91,7 @@ def input_control(input_set)->None:
                 case "12":
                     modificar_bonificacion()
                 case "13":
-                    nuevo_deposito()
+                    nuevo_debito()
                 case "14":
                     nueva_carga()
                 case "15":
