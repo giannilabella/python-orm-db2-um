@@ -13,6 +13,7 @@ postgres_database_config = config['postgres']
 mongodb_ssh_tunnel_config = config['mongodb_ssh_tunnel']
 mongodb_database_config = config['mongodb']
 
+postgres_ssh_tunnel = None
 postgres_database = PostgresqlDatabase(
     postgres_database_config.get('db_name'),
     host=postgres_database_config.get('db_host'),
@@ -20,6 +21,7 @@ postgres_database = PostgresqlDatabase(
     user=postgres_database_config.get('db_user'),
     password=postgres_database_config.get('db_password'),
 )
+mongodb_ssh_tunnel = None
 mongodb_database = MongoClient(None)
 
 
@@ -46,9 +48,10 @@ def open_ssh_tunnel(ssh_tunnel_config):
 
 def postgres_connect() -> PostgresqlDatabase:
     global postgres_ssh_tunnel
+    global postgres_database
 
     try:
-        if global_config.getboolean('use_ssh_tunnel'):
+        if global_config.getboolean('use_ssh_tunnel') and postgres_ssh_tunnel is None:
             postgres_ssh_tunnel = open_ssh_tunnel(postgres_ssh_tunnel_config)
         postgres_database.connect()
         return postgres_database
@@ -64,9 +67,10 @@ def postgres_connect() -> PostgresqlDatabase:
 
 def mongodb_connect() -> MongoClient:
     global mongodb_ssh_tunnel
+    global mongodb_database
 
     try:
-        if global_config.getboolean('use_ssh_tunnel'):
+        if global_config.getboolean('use_ssh_tunnel') and mongodb_ssh_tunnel is None:
             mongodb_ssh_tunnel = open_ssh_tunnel(mongodb_ssh_tunnel_config)
         mongodb_database = MongoClient(
             authSource=mongodb_database_config.get('db_name'),
