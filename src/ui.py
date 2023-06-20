@@ -7,7 +7,9 @@ from src.controllers.persona import *
 from src.controllers.vehiculo import *
 from src.controllers.ventanilla import *
 from src.controllers.propietario import *
-
+from src.controllers.bonificacion import *
+from src.controllers.debito import *
+from src.controllers.carga import *
 
 def clear_console():
     match (platform.system()):
@@ -26,26 +28,57 @@ def displayMenu(menu_select) -> None:
     match (menu_select):
         case "menu_de_inicio":
             print(
-                "******************************************Welcome User********************************************\n" +
-                "1- Consultar Datos\n" +
-                "2- Modificar Datos \n" +
-                "\n\n\n\n\n\n\n**************************************************************************************************\n"
-            )
+                "******************************************Welcome User********************************************\n"+
+                "1- Consultar Datos\n"+
+                "2- Agregar Datos \n"+
+                "3- Modificar Datos \n"+
+                "4- Borrar Datos \n"+
+                "\n\n\n\n\n**************************************************************************************************\n"
+                )
             input_control("menu_de_inicio")
+        case "menu_de_agregar":
+            print(
+                "*****Agregar Datos******************************************************************************\n"+
+                "1- Agregar Persona              7- Agregar Bonificacion \n"+
+                "2- Agregar Empresa              8- Agregar Debito       \n"+
+                "3- Agregar Cuenta               9- Agregar Carga        \n"+
+                "4- Agregar Vehículo             \n"+
+                "5- Agregar Peaje                \n"+
+                "6- Agregar ventanilla           \n\n"+
+                "--------------------------------------------------------------------------------------------------\n"+
+                "0- retroceder  |\n"+
+                "**************************************************************************************************\n"
+                )
+            input_control("menu_de_agregar")
+        
         case "menu_de_modificacion":
             print(
-                "*****Modificar Datos******************************************************************************\n" +
-                "1- Agregar Persona              7- Modificar Persona           13- Borrar Persona   \n" +
-                "2- Agregar Empresa              8- Modificar Empresa           14- Borrar Empresa\n" +
-                "3- Agregar Cuenta               9- Modificar Cuenta            15- Borrar Cuenta\n" +
-                "4- Agregar Vehículo             10- Modificar Vehículo         16- Borrar Vehículo\n" +
-                "5- Agregar Peaje                11- Modificar Peaje            17- Borrar Peaje\n" +
-                "6- Agregar ventanilla           12- Modificar ventanilla       18- Borrar ventanilla\n\n" +
-                "--------------------------------------------------------------------------------------------------\n" +
-                "0- retroceder  |\n" +
+                "*****Modificar Datos******************************************************************************\n"+
+                "1- Modificar Persona              7- Modificar Bonificación\n"+
+                "2- Modificar Empresa              \n"+
+                "3- Modificar Cuenta               \n"+
+                "4- Modificar Vehículo             \n"+
+                "5- Modificar Peaje                \n"+
+                "6- Modificar ventanilla           \n\n"+
+                "--------------------------------------------------------------------------------------------------\n"+
+                "0- retroceder  |\n"+
                 "**************************************************************************************************\n"
             )
             input_control("menu_de_modificacion")
+        case "menu_de_borrar":
+            print(
+                "*****Borrar Datos******************************************************************************\n"+
+                "1- Borrar Persona              7- Borrar Bonificación\n"+
+                "2- Borrar Empresa              \n"+
+                "3- Borrar Cuenta               \n"+
+                "4- Borrar Vehículo             \n"+
+                "5- Borrar Peaje                \n"+
+                "6- Borrar ventanilla           \n\n"+
+                "--------------------------------------------------------------------------------------------------\n"+
+                "0- retroceder  |\n"+
+                "**************************************************************************************************\n"
+                )
+            input_control("menu_de_borrar")    
         case "menu_de_consulta":
             print(
                 "*****Consultar Datos******************************************************************************\n" +
@@ -54,7 +87,7 @@ def displayMenu(menu_select) -> None:
                 "--------------------------------------------------------------------------------------------------\n" +
                 "0- retroceder  |\n" +
                 "\n**************************************************************************************************\n"
-            )
+                )
             input_control("menu_de_consulta")
 
 
@@ -67,13 +100,16 @@ def input_control(input_set) -> None:
                 case "1":
                     displayMenu("menu_de_consulta")
                 case "2":
+                    displayMenu("menu_de_agregar")
+                case "3":
                     displayMenu("menu_de_modificacion")
+                case "4":
+                    displayMenu("menu_de_borrar")
                 case _:
                     input("Entrada no valida,presione enter para continuar")
 
-        case "menu_de_modificacion":
-            inp: str = input(
-                "Ingrese el numero que corresponda a la acción que desea tomar: ")
+        case "menu_de_agregar":
+            inp:str = input("Ingrese el numero que corresponda a la acción que desea tomar: ")
             match(inp):
                 case "0":
                     displayMenu("menu_de_inicio")
@@ -90,29 +126,11 @@ def input_control(input_set) -> None:
                 case "6":
                     agregar_ventanilla()
                 case "7":
-                    modificar_persona()
+                    agregar_bonificacion()
                 case "8":
-                    modificar_empresa()
+                    agregar_debito()
                 case "9":
-                    modificar_cuenta()
-                case "10":
-                    modificar_vehiculo()
-                case "11":
-                    modificar_peaje()
-                case "12":
-                    modificar_ventanilla()
-                case "13":
-                    borrar_persona()
-                case "14":
-                    borrar_empresa()
-                case "15":
-                    borrar_cuenta()
-                case "16":
-                    borrar_vehiculo()
-                case "17":
-                    borrar_peaje()
-                case "18":
-                    borrar_ventanilla()
+                    agregar_carga()
                 case _:
                     input("Entrada no valida,presione enter para continuar")
 
@@ -136,8 +154,35 @@ def input_control(input_set) -> None:
                 case "0":
                     displayMenu("menu_de_inicio")
                 case "1":
-                    listar_propietarios()
+                    borrar_persona()
                 case "2":
-                    listar_cuentas()
-                case _:
-                    input("Entrada no valida,presione enter para continuar")
+                    borrar_empresa()
+                case "3":
+                    borrar_cuenta()
+                case "4":
+                    borrar_vehiculo()
+                case "5":
+                    borrar_peaje()
+                case "6":
+                    borrar_ventanilla()
+                case "7":
+                    borrar_bonificacion()
+        case "menu_de_modificacion":
+            inp:str = input("Ingrese el numero que corresponda a la acción que desea tomar: ")
+            match (inp):
+                case "0":
+                    displayMenu("menu_de_inicio")
+                case "1":
+                    modificar_persona()
+                case "2":
+                    modificar_empresa()
+                case "3":
+                    modificar_cuenta()
+                case "4":
+                    modificar_vehiculo()
+                case "5":
+                    modificar_peaje()
+                case "6":
+                    modificar_ventanilla()
+                case "7":
+                    modificar_bonificacion()

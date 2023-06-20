@@ -48,6 +48,10 @@ def agregar_debito() -> Debito:
         bonificacion = mongo_database['Bonificaciones'].find_one({'cuenta': cuenta.cuenta_id, 'peaje': peaje.peaje_id})
         descuento = int(bonificacion['descuento'].removesuffix('%')) if bonificacion else 0
         descuento = 1 - descuento/100
+        
+        if cuenta.cuenta_saldo < int(tarifa)*descuento:
+            raise Exception("no hay suficiente saldo en cuenta como para debitar")
+        
         new_debito: Debito = Debito.create(
             debito_fecha_y_hora=datetime.now(),
             debito_cuenta=cuenta,
@@ -70,7 +74,7 @@ def agregar_debito() -> Debito:
         return
 
 
-def get_cuenta_y_peaje(database, desea) -> (Cuenta, Peaje):
+def get_cuenta_y_peaje(database, desea) -> tuple[Cuenta, Peaje]:
     propietario = None
 
     if desea == 'p':
