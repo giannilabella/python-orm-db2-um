@@ -1,6 +1,6 @@
 from datetime import date
 
-from src.database import psycopg2_connect, postgres_connect
+from src.database import psycopg2_connect, postgres_connect, mongodb_connect
 
 from src.models.cuenta import Cuenta
 from src.models.persona import Persona
@@ -22,6 +22,7 @@ def listar_cuentas():
             try:
                 cursor.execute("""
                     select
+                        cuenta_id,
                         persona_id,
                         persona_dni,
                         empresa_rut,
@@ -41,7 +42,7 @@ def listar_cuentas():
                     left outer join vehiculo on
                         (propietario_vehiculo_vehiculo_id = vehiculo_id)
                     group by
-                        persona_id, persona_dni, empresa_rut, cuenta_saldo, cuenta_creacion;
+                        cuenta_id, persona_id, persona_dni, empresa_rut, cuenta_saldo, cuenta_creacion;
                 """)
             except Exception as e:
                 print('Error al listar cuentas')
@@ -49,9 +50,23 @@ def listar_cuentas():
                 input('Presione enter para continuar...')
                 return
 
-            for (persona_id, dni, rut, saldo, creacion, vehiculos) in cursor.fetchall():
+            for (cuenta_id, persona_id, dni, rut, saldo, creacion, vehiculos) in cursor.fetchall():
+                peajes = map(lambda b: (b['peaje'], b['descuento']), mongodb_connect()['Bonificaciones'].find({'cuenta':cuenta_id}))
+                peajes_list = []
+                for (peaje, descuento) in peajes:
+                    cursor.execute("""
+                        select
+                            peaje_nombre
+                        from
+                            peaje
+                        where
+                            peaje_id = {};
+                    """.format(peaje))
+                    peajes_list.append((cursor.fetchone()[0], descuento))
+                peajes = ', '.join(map(lambda p: ' - '.join(p), peajes_list)) if len(peajes_list) != 0 else '-'
+
                 if dni is None:
-                    print(f'Cuenta de la empresa de RUT {rut}, creada en {creacion}, tiene ${saldo} de saldo y las matriculas de sus vehiculos asociados son: {vehiculos}')
+                    print(f'Cuenta de la empresa de RUT {rut}, creada en {creacion}, tiene ${saldo} de saldo, las matriculas de sus vehiculos asociados son: {vehiculos}, y tiene bonificacion en peajes: {peajes}')
                 else:
                     cursor.execute("""
                         select
@@ -71,7 +86,7 @@ def listar_cuentas():
                     """.format(persona_id))
                     result = cursor.fetchone()
                     vehiculos += ', ' + result[1] if result else ''
-                    print(f'Cuenta de la persona de DNI {dni}, creada en {creacion}, tiene ${saldo} de saldo y las matriculas de sus vehiculos asociados son: {vehiculos}')
+                    print(f'Cuenta de la persona de DNI {dni}, creada en {creacion}, tiene ${saldo} de saldo, las matriculas de sus vehiculos asociados son: {vehiculos}, y tiene bonificacion en peajes: {peajes}')
 
     connection.close()
 
