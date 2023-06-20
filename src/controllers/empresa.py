@@ -36,7 +36,7 @@ def agregar_empresa() -> Empresa:
                     try:
                         Telefono.create(
                             telefono_numero = input("ingrese numero de telefono (13 cifras y sino de +): "),
-                            telefono_id_empresa = new_empresa.empresa_id
+                            telefono_empresa_id = new_empresa.empresa_id
                         )
                     except Exception as e:
                         new_propietario.delete_instance()
@@ -100,10 +100,10 @@ def modificar_empresa()->Empresa:
             old_empresa.empresa_direccion = direccion_nueva
         
         try:
-            telefonos:list[Telefono]   =   Telefono.select().where(Telefono.telefono_id_empresa == old_empresa)
+            telefonos:list[Telefono]   =   Telefono.select().where(Telefono.telefono_empresa_id == old_empresa)
             for telefono in telefonos:
                 print(f"teléfono antiguo: {old_empresa.empresa_direccion}")
-                telefono_nuevo: str = input("ingrese teléfono nuevo, o presione enter para no alterar el teléfono antiguo: ")
+                telefono_nuevo: str = input("Ingrese teléfono nuevo, o presione enter para no alterar el teléfono antiguo: ")
                 
                 if telefono_nuevo != "":
                     telefono.telefono_numero = telefono_nuevo
@@ -149,7 +149,7 @@ def borrar_empresa()->Empresa:
     
     try:
         old_propietario.delete_instance()
-        Telefono.delete().where(Telefono.telefono_id_empresa == old_empresa)
+        Telefono.delete().where(Telefono.telefono_empresa_id == old_empresa)
         old_empresa.delete_instance()
         print('Empresa borrada')
         input('Presione enter para continuar...')
