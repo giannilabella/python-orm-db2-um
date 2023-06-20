@@ -42,5 +42,6 @@ def listar_propietarios():
                     print(f'Empresa de RUT {rut} es propietaria de los vehiculos de matricula: {vehiculos}')
                 else:
                     print(f'Persona de DNI {dni} es propietaria de los vehiculos de matricula: {vehiculos}')
+            input('Presione enter para continuar...')
 
     connection.close()

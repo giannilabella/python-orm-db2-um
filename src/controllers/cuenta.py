@@ -51,7 +51,7 @@ def listar_cuentas():
                 return
 
             for (cuenta_id, persona_id, dni, rut, saldo, creacion, vehiculos) in cursor.fetchall():
-                peajes = map(lambda b: (b['peaje'], b['descuento']), mongodb_connect()['Bonificaciones'].find({'cuenta':cuenta_id}))
+                peajes = list(map(lambda b: (b['peaje'], b['descuento']), mongodb_connect()['Bonificaciones'].find({'cuenta':cuenta_id})))
                 peajes_list = []
                 for (peaje, descuento) in peajes:
                     cursor.execute("""
@@ -62,7 +62,8 @@ def listar_cuentas():
                         where
                             peaje_id = {};
                     """.format(peaje))
-                    peajes_list.append((cursor.fetchone()[0], descuento))
+                    nombre = cursor.fetchone()[0]
+                    peajes_list.append((nombre, descuento))
                 peajes = ', '.join(map(lambda p: ' - '.join(p), peajes_list)) if len(peajes_list) != 0 else '-'
 
                 if dni is None:
@@ -87,6 +88,7 @@ def listar_cuentas():
                     result = cursor.fetchone()
                     vehiculos += ', ' + result[1] if result else ''
                     print(f'Cuenta de la persona de DNI {dni}, creada en {creacion}, tiene ${saldo} de saldo, las matriculas de sus vehiculos asociados son: {vehiculos}, y tiene bonificacion en peajes: {peajes}')
+            input('Presione enter para continuar...')
 
     connection.close()
 
