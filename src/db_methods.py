@@ -33,37 +33,6 @@ def nueva_carga() -> None:
         input("Dato no valido ingresado para algún dato pedido")
         return
 
-def agregar_tipo_vehiculo() -> None:
-    tipo = input("Ingrese tipo de vehiculo: ")
-
-    try:
-        new_tipo_vehiculo = TipoVehiculo.create(
-            tipo_vehiculo_tipo=tipo
-        )
-    except Exception:
-        input("Dato no valido ingresado para algún dato pedido")
-        return
-
-def agregar_vehiculo() -> None:
-    matricula = input("Ingrese matricula: ")
-    marca = input("Ingrese marca: ")
-    modelo = input("Ingrese modelo: ")
-    color = input("Ingrese color: ")
-    id_rfid = input("Ingrese ID RFID: ")
-    tipo_id = input("Ingrese ID de tipo de vehiculo: ")
-
-    try:
-        new_vehiculo = Vehiculo.create(
-            vehiculo_matricula=matricula,
-            vehiculo_marca=marca,
-            vehiculo_modelo=modelo,
-            vehiculo_color=color,
-            vehiculo_id_rfid=id_rfid,
-            vehiculo_tipo_id=tipo_id
-        )
-    except Exception:
-        input("Dato no valido ingresado para algún dato pedido")
-        return
 
 def agregar_tarifa() -> None:
     tipo_vehiculo_id = input("Ingrese ID de tipo de vehiculo: ")
