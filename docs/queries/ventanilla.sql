@@ -1,11 +1,11 @@
 CREATE TABLE Ventanilla (
     ventanilla_id           SERIAL,
-    ventanilla_id_peaje     SERIAL,
+    ventanilla_peaje_id     SERIAL,
     ventanilla_es_rfid      BOOLEAN NOT NULL,
     CONSTRAINT fk
-        FOREIGN KEY (ventanilla_id_peaje)
+        FOREIGN KEY (ventanilla_peaje_id)
         REFERENCES Peaje(peaje_id)
         ON DELETE CASCADE,
     CONSTRAINT pk
-        PRIMARY KEY (ventanilla_id_peaje, ventanilla_id)
+        PRIMARY KEY (ventanilla_peaje_id, ventanilla_id)
 );

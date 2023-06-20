@@ -1,14 +1,14 @@
 CREATE TABLE Propietario_Vehiculo(
-    id_propietario  SERIAL  NOT NULL,
-    id_vehiculo     SERIAL  NOT NULL,
+    propietario_vehiculo_propietario_id  SERIAL  NOT NULL,
+    propietario_vehiculo_vehiculo_id     SERIAL  NOT NULL,
     CONSTRAINT fk_propietario
-        FOREIGN KEY (id_propietario)
+        FOREIGN KEY (propietario_vehiculo_propietario_id)
         REFERENCES Propietario(propietario_id)
         ON DELETE CASCADE,
     CONSTRAINT fk_vehiculo
-        FOREIGN KEY (id_vehiculo)
+        FOREIGN KEY (propietario_vehiculo_vehiculo_id)
         REFERENCES Vehiculo(vehiculo_id)
         ON DELETE CASCADE,
     CONSTRAINT pk_prop_vehi
-        PRIMARY KEY (id_propietario, id_vehiculo)
+        PRIMARY KEY (propietario_vehiculo_propietario_id, id_vehiculo)
 );

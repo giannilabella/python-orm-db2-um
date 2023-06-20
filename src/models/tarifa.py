@@ -7,4 +7,4 @@ class Tarifa(BaseModel):
     tarifa_id = AutoField(primary_key=True)
     tarifa_valor = IntegerField(null=False)
     tarifa_fecha = DateField(null=False)
-    tarifa_id_tipo_vehiculo = ForeignKeyField(TipoVehiculo, null=False, on_delete='CASCADE')
+    tarifa_tipo_vehiculo = ForeignKeyField(TipoVehiculo, null=False, on_delete='CASCADE')

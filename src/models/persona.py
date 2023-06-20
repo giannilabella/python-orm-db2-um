@@ -12,4 +12,4 @@ class Persona(BaseModel):
     persona_direccion = CharField(max_length=100, null=False)
     persona_apellido_1 = CharField(max_length=35, null=False)
     persona_apellido_2 = CharField(max_length=35, null=True)
-    persona_id_asociado = ForeignKeyField('self', on_delete='SET NULL', null=True)
+    persona_asociado = ForeignKeyField('self', on_delete='SET NULL', null=True)

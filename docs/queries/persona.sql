@@ -8,9 +8,9 @@ CREATE TABLE Persona (
     persona_direccion       VARCHAR(35)     NOT NULL,
     persona_apellido_1      VARCHAR(35)     NOT NULL,
     persona_apellido_2      VARCHAR(35)     NOT NULL,
-    persona_id_asociado     SERIAL,
+    persona_asociado_id     SERIAL,
     CONSTRAINT fk_asociado
-        FOREIGN KEY (persona_id_asociado)
+        FOREIGN KEY (persona_asociado_id)
         REFERENCES Persona(persona_id)
         ON DELETE SET NULL,
     CONSTRAINT unique_attr

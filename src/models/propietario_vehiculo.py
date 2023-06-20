@@ -5,5 +5,5 @@ from src.models.vehiculo import Vehiculo
 
 
 class PropietarioVehiculo(BaseModel):
-    id_propietario = ForeignKeyField(Propietario, backref='vehiculos', on_delete='CASCADE')
-    id_vehiculo = ForeignKeyField(Vehiculo, backref='propietarios', on_delete='CASCADE')
+    propietario_vehiculo_propietario = ForeignKeyField(Propietario, backref='vehiculos', on_delete='CASCADE')
+    propietario_vehiculo_vehiculo = ForeignKeyField(Vehiculo, backref='propietarios', on_delete='CASCADE')

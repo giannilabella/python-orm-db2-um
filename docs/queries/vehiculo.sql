@@ -5,9 +5,9 @@ CREATE TABLE Vehiculo(
     vehiculo_modelo     VARCHAR(35)     NOT NULL,    
     vehiculo_color      VARCHAR(35)     NOT NULL, 
     vehiculo_id_rfid    INTEGER         NOT NULL,
-    vehiculo_id_tipo    SERIAL          NOT NULL,
+    vehiculo_tipo_id    SERIAL          NOT NULL,
     CONSTRAINT fk
-        FOREIGN KEY (vehiculo_id_tipo)
+        FOREIGN KEY (vehiculo_tipo_id)
         REFERENCES TipoVehiculo(tipo_vehiculo_id)
         ON DELETE SET NULL,
     CONSTRAINT unique_matricula

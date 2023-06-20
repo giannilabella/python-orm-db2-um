@@ -10,4 +10,4 @@ class Vehiculo(BaseModel):
     vehiculo_modelo = CharField(max_length=35, null=False)
     vehiculo_id_rfid = IntegerField(unique=True, null=False)
     vehiculo_matricula = FixedCharField(max_length=7, unique=True, null=False)
-    vehiculo_id_tipo = ForeignKeyField(TipoVehiculo, on_delete='SET NULL', null=False)
+    vehiculo_tipo = ForeignKeyField(TipoVehiculo, on_delete='SET NULL', null=False)
