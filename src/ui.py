@@ -1,6 +1,11 @@
 import os
 import platform
-from src.db_methods import *
+from src.controllers.cuenta import *
+from src.controllers.empresa import *
+from src.controllers.peaje import *
+from src.controllers.persona import *
+from src.controllers.vehiculo import *
+from src.controllers.ventanilla import *
 
 def clear_console():
     match (platform.system()):
@@ -20,19 +25,19 @@ def displayMenu(menu_select)->None:
             print(
                 "******************************************Welcome User********************************************\n"+
                 "1- Consultar Datos\n"+
-                "2- Modificar Datos Preexistentes\n\n\n\n\n\n\n"+
-                "\n**************************************************************************************************\n"
+                "2- Modificar Datos \n"+
+                "\n\n\n\n\n\n\n**************************************************************************************************\n"
                 )
             input_control("menu_de_inicio")
         case "menu_de_modificacion":
             print(
                 "*****Modificar Datos******************************************************************************\n"+
-                "1- Agregar Persona              7- Modificar Persona           13- Nuevo debito\n"+
-                "2- Agregar Propietario          8- Modificar Propietario       14- Nueva carga\n"+
-                "3- Agregar Cuenta               9- Modificar Cuenta            15- Agregar tipo de vehículo\n"+
-                "4- Agregar Vehículo             10- Modificar Vehículo         16- Agregar tarifa\n"+
-                "5- Agregar Peaje                11- Modificar Peaje            17- Modificar tipo de vehículo\n"+
-                "6- Agregar Bonificación         12- Modificar Bonificación     18- Modificar tarifa\n\n"+
+                "1- Agregar Persona              7- Modificar Persona           13- Borrar Persona   \n"+
+                "2- Agregar Empresa              8- Modificar Empresa           14- Borrar Empresa\n"+
+                "3- Agregar Cuenta               9- Modificar Cuenta            15- Borrar Cuenta\n"+
+                "4- Agregar Vehículo             10- Modificar Vehículo         16- Borrar Vehículo\n"+
+                "5- Agregar Peaje                11- Modificar Peaje            17- Borrar Peaje\n"+
+                "6- Agregar ventanilla           12- Modificar ventanilla       18- Borrar ventanilla\n\n"+
                 "--------------------------------------------------------------------------------------------------\n"+
                 "0- retroceder  |\n"+
                 "**************************************************************************************************\n"
@@ -69,7 +74,7 @@ def input_control(input_set)->None:
                 case "1":
                     agregar_persona()
                 case "2":
-                    agregar_propietario()
+                    agregar_empresa()
                 case "3":
                     agregar_cuenta()
                 case "4":
@@ -77,11 +82,11 @@ def input_control(input_set)->None:
                 case "5":
                     agregar_peaje()
                 case "6":
-                    agregar_bonificacion()
+                    agregar_ventanilla()
                 case "7":
                     modificar_persona()
                 case "8":
-                    modificar_propietario()
+                    modificar_empresa()
                 case "9":
                     modificar_cuenta()
                 case "10":
@@ -89,23 +94,35 @@ def input_control(input_set)->None:
                 case "11":
                     modificar_peaje()
                 case "12":
-                    modificar_bonificacion()
+                    modificar_ventanilla()
                 case "13":
-                    nuevo_debito()
+                    borrar_persona()
                 case "14":
-                    nueva_carga()
+                    borrar_empresa()
                 case "15":
-                    agregar_tipo_vehiculo()
+                    borrar_cuenta()
                 case "16":
-                    agregar_tarifa()
+                    borrar_vehiculo()
                 case "17":
-                    modificar_tipo_de_vehiculo()
+                    borrar_peaje()
                 case "18":
-                    modificar_tarifa()
+                    borrar_ventanilla()
                 case _:
                     input("Entrada no valida,presione enter para continuar")
         
         case "menu_de_consulta":
+            inp:str = input("Ingrese el numero que corresponda a la acción que desea tomar: ")
+            match (inp):
+                case "0":
+                    displayMenu("menu_de_inicio")
+                case "1":
+                    Listado_de_propietarios_y_sus_vehículos()
+                case "2":
+                    Listado_de_cuentas_con_su_titular_y_sus_vehículos_asociados()
+                case _:
+                    input("Entrada no valida,presione enter para continuar")
+        
+        case "menu_de_borrar":
             inp:str = input("Ingrese el numero que corresponda a la acción que desea tomar: ")
             match (inp):
                 case "0":
