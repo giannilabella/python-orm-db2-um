@@ -103,7 +103,7 @@ def mongodb_connect() -> MongoClient:
             username=mongodb_database_config.get('db_user'),
             password=mongodb_database_config.get('db_password'),
             authMechanism='DEFAULT',
-        )
+        ).dbd2g10
         return mongodb_database
     except Exception:
         if mongodb_ssh_tunnel:
