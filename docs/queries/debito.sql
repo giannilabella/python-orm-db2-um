@@ -5,6 +5,7 @@ CREATE TABLE Debito (
     debito_ventanilla_id    SERIAL      NOT NULL, 
     debito_fecha_y_hora     TIMESTAMP   NOT NULL,
     debito_cuenta_id        SERIAL      NOT NULL,
+    debito_monto            INTEGER     NOT NULL,
     CONSTRAINT fk_vehiculo
         FOREIGN KEY (debito_vehiculo_id)
         REFERENCES Vehiculo(vehiculo_id)

@@ -1,4 +1,4 @@
-from peewee import AutoField, DateTimeField, ForeignKeyField
+from peewee import AutoField, DateTimeField, ForeignKeyField,IntegerField
 from src.models.basemodel import BaseModel
 from src.models.cuenta import Cuenta
 from src.models.peaje import Peaje
@@ -13,3 +13,4 @@ class Debito(BaseModel):
     debito_peaje = ForeignKeyField(Peaje, backref='debitos', on_delete='SET NULL')
     debito_vehiculo = ForeignKeyField(Vehiculo, backref='debitos', on_delete='SET NULL')
     debito_ventanilla = ForeignKeyField(Ventanilla, backref='debitos', on_delete='SET NULL')
+    debito_monto = IntegerField(null=False)
