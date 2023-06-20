@@ -16,53 +16,7 @@ from src.models.vehiculo import Vehiculo
 from src.models.ventanilla import Ventanilla
 from src.models.propietario_vehiculo import PropietarioVehiculo
 
-    
-def agregar_telefono() -> None:
-    numero: str      = input("Ingrese numero de telefono: ")
-    empresa_rut: str = input("Ingrese RUT de empresa asociada: ")
-    empresa          = None
-    try:
-        empresa:Empresa  = Empresa.get(Empresa.empresa_rut==empresa_rut)
-    except DoesNotExist:
-        input("No existe una empresa con ese rut, presione enter para continuar...")
-        return
 
-    try:
-        Telefono.create(
-            telefono_numero      = numero,
-            telefono_empresa_rut = empresa
-        )
-    except Exception:
-        input("Dato no valido ingresado para algún dato pedido")
-        return
-
-def agregar_propietario() -> None:
-    persona_id = input("Ingrese ID de persona: ")
-    empresa_id = input("Ingrese ID de empresa: ")
-
-    try:
-        new_propietario = Propietario.create(
-            propietario_persona_id=persona_id,
-            propietario_empresa_id=empresa_id
-        )
-    except Exception:
-        input("Dato no valido ingresado para algún dato pedido")
-        return
-
-def agregar_cuenta() -> None:
-    creacion = input("Ingrese fecha de creacion (YYYY-MM-DD): ")
-    saldo = input("Ingrese saldo: ")
-    propietario_id = input("Ingrese ID de propietario: ")
-
-    try:
-        new_cuenta = Cuenta.create(
-            cuenta_creacion=creacion,
-            cuenta_saldo=saldo,
-            cuenta_propietario_id=propietario_id
-        )
-    except Exception:
-        input("Dato no valido ingresado para algún dato pedido")
-        return
 
 def nueva_carga() -> None:
     cuenta_numero = input("Ingrese numero de cuenta: ")
