@@ -3,7 +3,7 @@ from src.models.persona import Persona
 from src.models.propietario import Propietario
 
 
-def agregar_persona() -> Persona:
+def agregar_persona():
     try:
         database = postgres_connect()
     except Exception as e:
@@ -54,7 +54,7 @@ def agregar_persona() -> Persona:
         database.close()
         print('Persona creada')
         input('Presione enter para continuar...')
-        return nueva_persona
+        return
     except Exception as e:
         database.close()
         print('Error creando persona')
