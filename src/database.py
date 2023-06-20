@@ -2,6 +2,7 @@ from sshtunnel import SSHTunnelForwarder
 from configparser import ConfigParser
 from peewee import PostgresqlDatabase
 from pymongo import MongoClient
+import psycopg2
 
 config = ConfigParser()
 config.read('database.cfg')
@@ -44,6 +45,28 @@ def open_ssh_tunnel(ssh_tunnel_config):
     if not ssh_tunnel.is_active:
         raise Exception('Could not start SSH tunnel')
     return ssh_tunnel
+
+
+def psycopg2_connect():
+    global postgres_ssh_tunnel
+
+    try:
+        if global_config.getboolean('use_ssh_tunnel') and postgres_ssh_tunnel is None:
+            postgres_ssh_tunnel = open_ssh_tunnel(postgres_ssh_tunnel_config)
+
+        connection = psycopg2.connect(
+            dbname=postgres_database_config.get('db_name'),
+            host=postgres_database_config.get('db_host'),
+            port=postgres_database_config.getint('db_port'),
+            user=postgres_database_config.get('db_user'),
+            password=postgres_database_config.get('db_password'),
+        )
+        return connection
+    except Exception:
+        if postgres_ssh_tunnel:
+            postgres_ssh_tunnel.close()
+
+        raise
 
 
 def postgres_connect() -> PostgresqlDatabase:
