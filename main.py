@@ -1,5 +1,4 @@
-if __name__ == "main":
-    run:bool = True
-    
-    while(run):
-        pass
+from src.controllers.persona import agregar_persona
+
+if __name__ == "__main__":
+    agregar_persona()

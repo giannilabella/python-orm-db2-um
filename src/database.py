@@ -22,6 +22,7 @@ postgres_database = PostgresqlDatabase(
 )
 mongodb_database = MongoClient(None)
 
+
 def open_ssh_tunnel(ssh_tunnel_config):
     ssh_tunnel = SSHTunnelForwarder(
         ssh_address_or_host=ssh_tunnel_config.get('ssh_host'),
@@ -43,15 +44,12 @@ def open_ssh_tunnel(ssh_tunnel_config):
     return ssh_tunnel
 
 
-def postgres_connect():
+def postgres_connect() -> PostgresqlDatabase:
     global postgres_ssh_tunnel
 
     try:
         if global_config.getboolean('use_ssh_tunnel'):
-            print('Opening postgres ssh tunnel...')
             postgres_ssh_tunnel = open_ssh_tunnel(postgres_ssh_tunnel_config)
-
-        print('Connecting to postgres database...')
         postgres_database.connect()
         return postgres_database
     except Exception:
@@ -64,15 +62,12 @@ def postgres_connect():
         raise
 
 
-def mongodb_connect():
+def mongodb_connect() -> MongoClient:
     global mongodb_ssh_tunnel
 
     try:
         if global_config.getboolean('use_ssh_tunnel'):
-            print('Opening mongodb ssh tunnel...')
             mongodb_ssh_tunnel = open_ssh_tunnel(mongodb_ssh_tunnel_config)
-
-        print('Connecting to mongodb database...')
         mongodb_database = MongoClient(
             authSource=mongodb_database_config.get('db_name'),
             host=mongodb_database_config.get('db_host'),

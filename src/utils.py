@@ -17,7 +17,11 @@ from src.database import postgres_connect
 
 
 def create_tables():
+    print('Connecting to database...')
     database = postgres_connect()
+    print('Connected to database!')
+
+    print('Creating tables...')
     database.create_tables([
         Persona,
         Empresa,
@@ -36,3 +40,29 @@ def create_tables():
         PropietarioVehiculo,
     ])
     print('Tables created!')
+
+
+def drop_tables():
+    print('Connecting to database...')
+    database = postgres_connect()
+    print('Connected to database!')
+
+    print('Dropping tables...')
+    database.drop_tables([
+        Persona,
+        Empresa,
+        Propietario,
+        Telefono,
+        Propietario,
+        Cuenta,
+        Carga,
+        Vehiculo,
+        TipoVehiculo,
+        Tarifa,
+        Peaje,
+        Ventanilla,
+        Bonificacion,
+        Debito,
+        PropietarioVehiculo,
+    ])
+    print('Tables dropped!')

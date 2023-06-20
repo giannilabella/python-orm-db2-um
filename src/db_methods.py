@@ -1,5 +1,5 @@
 from peewee import DoesNotExist
-from src.database import postgres_database
+from src.database import postgres_connect
 
 from src.models.bonificacion import Bonificacion
 from src.models.carga import Carga
@@ -16,54 +16,6 @@ from src.models.vehiculo import Vehiculo
 from src.models.ventanilla import Ventanilla
 from src.models.propietario_vehiculo import PropietarioVehiculo
 
-def agregar_persona() -> None:
-
-    dni:str             = input("ingrese dni (sin puntos ni guion): ")
-    nombre_1:str        = input("ingrese primer nombre: ")
-    nombre_2:str        = input("ingrese segundo nombre: ")
-    direccion:str       = input("ingrese dirección: ")
-    apellido_1:str      = input("ingrese primer apellido: ")
-    apellido_2:str      = input("ingrese segundo apellido: ")
-    mail:str            = input("ingrese e-mail: ")
-    celular:str         = input("ingrese celular: ")
-
-    hay_persona_asociada:str   = input("tiene personas asociadas (y/n): ")
-    hay_persona_asociada       = hay_persona_asociada.lower()
-    asociado:object = None
-
-    if(hay_persona_asociada in ["y","yes","y/","yes/","si","si/"]):
-        tmp_dni:str   = input("ingrese el dni de la persona asociada: ")
-        try:
-            asociado  = Persona.get(Persona.persona_dni==tmp_dni)
-        except DoesNotExist:
-            input("No existe una persona con ese dni, presione enter para continuar...")
-            return
-        
-    elif(hay_persona_asociada not in ["n","no","n/","no/"]):
-        input("entrada no valida, toque cualquier tecla para continuar...")
-        return
-
-    try:
-        new_persona:Persona = Persona.create(
-            persona_dni         = dni,
-            persona_nombre_1    = nombre_1,
-            persona_nombre_2    = nombre_2,
-            persona_direccion   = direccion,
-            persona_apellido_1  = apellido_1,
-            persona_apellido_2  = apellido_2,
-            persona_mail        = mail,
-            persona_celular     = celular,
-            persona_dni_asociado= asociado,
-        )
-        Propietario.create(
-            propietario_persona_id = new_persona,
-            propietario_empresa_id = None
-        )
-    except Exception:
-        input("dato no valido ingresado para algún dato pedido, toque enter para continuar...")
-        return
-    else:
-        input("transacción realizada exitosamente, toque enter para continuar...")
     
 def agregar_empresa() -> None:
     rut:str         = input("Ingrese RUT (sin puntos ni guion): ")
