@@ -17,25 +17,6 @@ from src.models.ventanilla import Ventanilla
 from src.models.propietario_vehiculo import PropietarioVehiculo
 
     
-def agregar_empresa() -> None:
-    rut:str         = input("Ingrese RUT (sin puntos ni guion): ")
-    nombre:str      = input("Ingrese nombre: ")
-    direccion:str   = input("Ingrese dirección: ")
-
-    try:
-        new_empresa:Empresa = Empresa.create(
-            empresa_rut         =   rut,
-            empresa_nombre      =   nombre,
-            empresa_direccion   =   direccion
-        )
-        Propietario.create(
-            propietario_persona_id = None,
-            propietario_empresa_id = new_empresa
-        )
-    except Exception:
-        input("Dato no valido ingresado para algún dato pedido, presione enter para continuar...")
-        return
-
 def agregar_telefono() -> None:
     numero: str      = input("Ingrese numero de telefono: ")
     empresa_rut: str = input("Ingrese RUT de empresa asociada: ")

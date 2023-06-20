@@ -1,4 +1,4 @@
-from src.controllers.persona import agregar_persona
+from src.controllers.empresa import borrar_empresa
 
 if __name__ == "__main__":
-    agregar_persona()
+    borrar_empresa()
