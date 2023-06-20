@@ -119,7 +119,7 @@ def borrar_ventanilla():
             for par in Ventanilla.select():
                 print(f"peaje: {par.ventanilla_peaje.peaje_nombre}, identificador de ventanilla: {par.ventanilla_id}, es rfid:{par.ventanilla_es_rfid}")
             
-            id_ventanilla: str = input("Ingrese el identificador de la ventanilla (si no lo conoce presione enter): ")
+            id_ventanilla: str = input("Ingrese el identificador de la ventanilla: ")
         except Exception as e:
             database.close()
             print('Error buscando peajes y ventanillas')

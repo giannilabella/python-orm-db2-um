@@ -1,5 +1,6 @@
 from src.database import postgres_connect
 from src.models.peaje import Peaje
+from src.models.ventanilla import Ventanilla
 
 
 def agregar_peaje() -> Peaje:
@@ -56,6 +57,7 @@ def modificar_peaje():
         print(e)
         input('Presione enter para continuar...')
         return
+    
     print(f"ruta antigua: {old_peaje.peaje_ruta}")
     new_ruta: str = input("ingrese ruta nueva, o presione enter para no alterar la ruta antigua: ")
     print(f"nombre antiguo: {old_peaje.peaje_nombre}")
@@ -82,7 +84,7 @@ def modificar_peaje():
         return old_peaje
     except Exception as e:
         database.close()
-        print('Error creando peaje')
+        print('Error modificando peaje')
         print(e)
         input('Presione enter para continuar...')
         return
@@ -92,6 +94,31 @@ def borrar_peaje():
         database = postgres_connect()
     except Exception as e:
         print('Error al conectarse con base de datos')
+        print(e)
+        input('Presione enter para continuar...')
+        return
+
+    nombre: str = input("Ingrese el nombre del peaje: ")
+    old_peaje:Peaje = None
+    try:
+        old_peaje = Peaje.get(Peaje.peaje_nombre==nombre)
+    except Exception as e:
+        database.close()
+        print('Error buscando peaje')
+        print(e)
+        input('Presione enter para continuar...')
+        return
+
+    try:
+        Ventanilla.delete().where(Ventanilla.ventanilla_peaje == old_peaje)
+        old_peaje.delete_instance()
+        print('Peaje borrado')
+        input('Presione enter para continuar...')
+        database.close()
+        return old_peaje
+    except Exception as e:
+        database.close()
+        print('Error borrando peaje')
         print(e)
         input('Presione enter para continuar...')
         return

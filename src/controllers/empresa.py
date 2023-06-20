@@ -100,7 +100,7 @@ def modificar_empresa()->Empresa:
             old_empresa.empresa_direccion = direccion_nueva
         
         try:
-            telefonos:list[Telefono]   =   Telefono.select().where(Telefono.telefono_empresa_id == old_empresa)
+            telefonos:list[Telefono]   =   Telefono.select().where(Telefono.telefono_empresa == old_empresa)
             for telefono in telefonos:
                 print(f"teléfono antiguo: {old_empresa.empresa_direccion}")
                 telefono_nuevo: str = input("Ingrese teléfono nuevo, o presione enter para no alterar el teléfono antiguo: ")
