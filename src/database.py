@@ -53,7 +53,8 @@ def postgres_connect() -> PostgresqlDatabase:
     try:
         if global_config.getboolean('use_ssh_tunnel') and postgres_ssh_tunnel is None:
             postgres_ssh_tunnel = open_ssh_tunnel(postgres_ssh_tunnel_config)
-        postgres_database.connect()
+        if postgres_database.is_closed():
+            postgres_database.connect()
         return postgres_database
     except Exception:
         if postgres_ssh_tunnel:
