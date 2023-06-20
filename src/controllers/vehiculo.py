@@ -24,7 +24,7 @@ def agregar_vehiculo():
         dni: str = input('Ingrese el dni de la persona: ')
         try:
             persona = Persona.get(Persona.persona_dni == dni)
-            propietario = Propietario.get(Propietario.propietario_persona_id == persona)
+            propietario = Propietario.get(Propietario.propietario_persona == persona)
         except Exception as e:
             database.close()
             print('Error buscando persona')
@@ -35,7 +35,7 @@ def agregar_vehiculo():
         rut: str = input('Ingrese el rut de la empresa: ')
         try:
             empresa = Empresa.get(Empresa.empresa_rut == rut)
-            propietario = Propietario.get(Propietario.propietario_empresa_id == empresa)
+            propietario = Propietario.get(Propietario.propietario_empresa == empresa)
         except Exception as e:
             database.close()
             print('Error buscando empresa')
@@ -44,7 +44,7 @@ def agregar_vehiculo():
             return
 
     matricula = input('Ingrese matricula: ')
-    rfid = input('Ingrese id rfid: ')
+    id_rfid = input('Ingrese id rfid: ')
     marca = input('Ingrese marca: ')
     color = input('Ingrese color: ')
     modelo = input('Ingrese modelo: ')
@@ -70,16 +70,16 @@ def agregar_vehiculo():
 
     try:
         nuevo_vehiculo = Vehiculo.create(
-            vehiculo_id_rfid=rfid,
-            vehiculo_id_tipo=tipo,
+            vehiculo_id_rfid=id_rfid,
+            vehiculo_tipo=tipo,
             vehiculo_marca=marca,
             vehiculo_color=color,
             vehiculo_modelo=modelo,
             vehiculo_matricula=matricula,
         )
         PropietarioVehiculo.create(
-            id_vehiculo=nuevo_vehiculo,
-            id_propietario=propietario,
+            propietario_vehiculo_vehiculo=nuevo_vehiculo,
+            propietario_vehiculo_propietario=propietario,
         )
         database.close()
         print('Vehiculo creado')
@@ -115,7 +115,7 @@ def modificar_vehiculo():
 
     print('Deje nuevo valor vacio para mantener valor actual')
     print(f'Id rfid actual: {vehiculo.vehiculo_id_rfid}')
-    rfid = input('Ingrese nuevo id rfid: ')
+    id_rfid = input('Ingrese nuevo id rfid: ')
     print('Marca actual: ' + vehiculo.vehiculo_marca)
     marca = input('Ingrese marca: ')
     print('Color actual: ' + vehiculo.vehiculo_color)
@@ -126,7 +126,7 @@ def modificar_vehiculo():
     tipos = TipoVehiculo.select()
     tipos_list = list(map(lambda t: t.tipo_vehiculo_tipo, tipos))
     print(f'Los tipos definidos son: {tipos_list}')
-    print('Tipo actual: ' + vehiculo.vehiculo_id_tipo.tipo_vehiculo_tipo)
+    print('Tipo actual: ' + vehiculo.vehiculo_tipo.tipo_vehiculo_tipo)
     tipo = input('Ingrese nuevo tipo: ')
     if tipo in tipos_list:
         tipo = tipos[tipos_list.index(tipo)]
@@ -145,7 +145,7 @@ def modificar_vehiculo():
     # propietarios = PropietarioVehiculo.select().where(PropietarioVehiculo.id_vehiculo == vehiculo)
     # prop_list = list(map(lambda p: PropietarioVehiculo.id_propietar, tipos))
     # print(f'Los tipos definidos son: {tipos_list}')
-    # print('Tipo actual: ' + vehiculo.vehiculo_id_tipo.tipo_vehiculo_tipo)
+    # print('Tipo actual: ' + vehiculo.vehiculo_tipo.tipo_vehiculo_tipo)
     # tipo = input('Ingrese nuevo tipo: ')
     # if tipo in tipos_list:
     #     tipo = tipos[tipos_list.index(tipo)]
@@ -163,8 +163,8 @@ def modificar_vehiculo():
 
     try:
         Vehiculo.update(
-            vehiculo_id_rfid=rfid if rfid != '' else vehiculo.vehiculo_id_rfid,
-            vehiculo_id_tipo=tipo,
+            vehiculo_id_rfid=id_rfid if id_rfid != '' else vehiculo.vehiculo_id_rfid,
+            vehiculo_tipo=tipo,
             vehiculo_marca=marca if marca != '' else vehiculo.vehiculo_marca,
             vehiculo_color=color if color != '' else vehiculo.vehiculo_color,
             vehiculo_modelo=modelo if modelo != '' else vehiculo.vehiculo_modelo,

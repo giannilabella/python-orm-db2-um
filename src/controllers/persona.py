@@ -45,11 +45,11 @@ def agregar_persona():
             persona_apellido_2=apellido_2,
             persona_mail=mail,
             persona_celular=celular,
-            persona_id_asociado=asociado,
+            persona_asociado=asociado,
         )
         Propietario.create(
-            propietario_persona_id=nueva_persona.persona_id,
-            propietario_empresa_id=None
+            propietario_persona=nueva_persona,
+            propietario_empresa=None
         )
         database.close()
         print('Persona creada')
@@ -98,7 +98,7 @@ def modificar_persona():
     mail: str = input('Ingrese nuevo e-mail: ')
     print('Celular actual: ' + persona.persona_celular)
     celular: str = input('Ingrese nuevo celular: ')
-    print('DNI asociado actual: ' + persona.persona_id_asociado.persona_dni if persona.persona_id_asociado else 'Sin asociado')
+    print('DNI asociado actual: ' + persona.persona_asociado.persona_dni if persona.persona_asociado else 'Sin asociado')
     dni_asociado: str = input('Ingrese DNI de nuevo asociado: ')
 
     if dni_asociado:
@@ -120,7 +120,7 @@ def modificar_persona():
             persona_apellido_2=apellido_2 if apellido_2 != '' else persona.persona_apellido_2,
             persona_mail=mail if mail != '' else persona.persona_mail,
             persona_celular=celular if celular != '' else persona.persona_celular,
-            persona_id_asociado=asociado if dni_asociado != '' else persona.persona_id_asociado,
+            persona_asociado=asociado if dni_asociado != '' else persona.persona_asociado,
         ).where(Persona.persona_id == persona.persona_id).execute()
         database.close()
         print('Persona modificada')
