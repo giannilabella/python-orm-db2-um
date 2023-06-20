@@ -49,11 +49,11 @@ def open_ssh_tunnel(ssh_tunnel_config):
 
 def psycopg2_connect():
     global postgres_ssh_tunnel
+    print('Connecting to database with psycopg2...')
 
     try:
         if global_config.getboolean('use_ssh_tunnel') and postgres_ssh_tunnel is None:
             postgres_ssh_tunnel = open_ssh_tunnel(postgres_ssh_tunnel_config)
-
         connection = psycopg2.connect(
             dbname=postgres_database_config.get('db_name'),
             host=postgres_database_config.get('db_host'),
@@ -61,6 +61,7 @@ def psycopg2_connect():
             user=postgres_database_config.get('db_user'),
             password=postgres_database_config.get('db_password'),
         )
+        print('Connected!')
         return connection
     except Exception:
         if postgres_ssh_tunnel:
@@ -72,12 +73,14 @@ def psycopg2_connect():
 def postgres_connect() -> PostgresqlDatabase:
     global postgres_ssh_tunnel
     global postgres_database
+    print('Connecting to database with peewee...')
 
     try:
         if global_config.getboolean('use_ssh_tunnel') and postgres_ssh_tunnel is None:
             postgres_ssh_tunnel = open_ssh_tunnel(postgres_ssh_tunnel_config)
         if postgres_database.is_closed():
             postgres_database.connect()
+        print('Connected!')
         return postgres_database
     except Exception:
         if postgres_ssh_tunnel:
@@ -92,6 +95,7 @@ def postgres_connect() -> PostgresqlDatabase:
 def mongodb_connect() -> MongoClient:
     global mongodb_ssh_tunnel
     global mongodb_database
+    print('Connecting to database with pymongo...')
 
     try:
         if global_config.getboolean('use_ssh_tunnel') and mongodb_ssh_tunnel is None:
@@ -104,6 +108,7 @@ def mongodb_connect() -> MongoClient:
             password=mongodb_database_config.get('db_password'),
             authMechanism='DEFAULT',
         ).dbd2g10
+        print('Connected!')
         return mongodb_database
     except Exception:
         if mongodb_ssh_tunnel:
