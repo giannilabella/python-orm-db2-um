@@ -1,5 +1,6 @@
 from src.database import postgres_connect
 from src.models.empresa import Empresa
+from src.models.telefono import Telefono
 from src.models.propietario import Propietario
 
 
@@ -22,10 +23,30 @@ def agregar_empresa() -> Empresa:
             empresa_nombre      =   nombre,
             empresa_direccion   =   direccion
         )
-        Propietario.create(
+        new_propietario:Propietario =  Propietario.create(
             propietario_persona_id = None,
             propietario_empresa_id = new_empresa
         )
+
+        tiene_telefono: str  = input("La empresa tiene telefono? (y/n): ")
+        if tiene_telefono == "y":
+            cantidad_telefonos: str  = input("ingrese cuantos telefonos tiene la empresa: ")
+            if cantidad_telefonos.isdecimal() is True:
+                for i in range(int(cantidad_telefonos)):
+                    try:
+                        Telefono.create(
+                            telefono_numero = input("ingrese numero de telefono (13 cifras y sino de +): "),
+                            telefono_id_empresa = new_empresa.empresa_id
+                        )
+                    except Exception as e:
+                        new_propietario.delete_instance()
+                        new_empresa.delete_instance()
+                        database.close()
+                        print('Error creando empresa')
+                        print(e)
+                        input('Presione enter para continuar...')
+                        return
+
         database.close()
         print('Empresa creada')
         input('Presione enter para continuar...')
@@ -78,6 +99,18 @@ def modificar_empresa()->Empresa:
         if direccion_nueva != "":
             old_empresa.empresa_direccion = direccion_nueva
         
+        try:
+            telefonos:list[Telefono]   =   Telefono.select().where(Telefono.telefono_id_empresa == old_empresa)
+            for telefono in telefonos:
+                print(f"teléfono antiguo: {old_empresa.empresa_direccion}")
+                telefono_nuevo: str = input("ingrese teléfono nuevo, o presione enter para no alterar el teléfono antiguo: ")
+                
+                if telefono_nuevo != "":
+                    telefono.telefono_numero = telefono_nuevo
+                    telefono.save()        
+        except Exception as e:
+            print(e)
+        
         old_empresa.save()
 
         print('Modificaciones guardadas')
@@ -116,6 +149,7 @@ def borrar_empresa()->Empresa:
     
     try:
         old_propietario.delete_instance()
+        Telefono.delete().where(Telefono.telefono_id_empresa == old_empresa)
         old_empresa.delete_instance()
         print('Empresa borrada')
         input('Presione enter para continuar...')
