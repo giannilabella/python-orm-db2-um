@@ -7,4 +7,4 @@ class Carga(BaseModel):
     carga_id = AutoField(primary_key=True)
     carga_importe = IntegerField(null=False)
     carga_fecha_y_hora = DateTimeField(null=False)
-    carga_cuenta_numero = ForeignKeyField(Cuenta, backref='cargas')
+    carga_cuenta_numero = ForeignKeyField(Cuenta, backref='cargas', on_delete='CASCADE')

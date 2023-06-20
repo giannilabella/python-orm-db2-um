@@ -7,4 +7,4 @@ class Cuenta(BaseModel):
     cuenta_numero = AutoField(primary_key=True)
     cuenta_saldo = IntegerField(null=False)
     cuenta_creacion = DateField(null=False)
-    cuenta_propietario_id = ForeignKeyField(Propietario)
+    cuenta_propietario_id = ForeignKeyField(Propietario, on_delete='CASCADE')
