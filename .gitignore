@@ -1,3 +1,5 @@
+*.zip
+
 # Config files
 *.cfg
 !template.cfg
