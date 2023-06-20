@@ -134,4 +134,33 @@ def modificar_persona():
 
 
 def borrar_persona():
-    pass
+    try:
+        database = postgres_connect()
+    except Exception as e:
+        print('Error al conectarse con base de datos')
+        print(e)
+        input('Presione enter para continuar...')
+        return
+
+    dni: str = input('Ingrese dni (sin puntos ni guion): ')
+    persona: Persona = None
+    try:
+        persona = Persona.get(Persona.persona_dni == dni)
+    except Exception as e:
+        database.close()
+        print('Error buscando persona')
+        print(e)
+        input('Presione enter para continuar...')
+        return
+
+    try:
+        Persona.delete().where(Persona.persona_id == persona.persona_id).execute()
+        database.close()
+        print('Persona borrada')
+        input('Presione enter para continuar...')
+    except Exception as e:
+        database.close()
+        print('Error borrando persona')
+        print(e)
+        input('Presione enter para continuar...')
+        return
