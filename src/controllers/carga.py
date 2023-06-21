@@ -14,7 +14,8 @@ def agregar_carga() -> Carga:
         return
 
     cuenta_id: str = input("Ingrese cuenta vinculada: ")
-    
+    cuenta:Cuenta = None
+
     try:
         cuenta = Cuenta.get(Cuenta.cuenta_id==cuenta_id)
     except Exception as e:
@@ -32,8 +33,10 @@ def agregar_carga() -> Carga:
             carga_fecha_y_hora = datetime.now(),
             carga_cuenta = cuenta,
         )
+        cuenta.cuenta_saldo += int(importe)
+        cuenta.save()
         database.close()
-        print('carga creado')
+        print('carga creada')
         input('Presione enter para continuar...')
         return new_carga
     except Exception as e:
