@@ -11,6 +11,7 @@ from src.models.propietario import Propietario
 def listar_cuentas():
     try:
         connection = psycopg2_connect()
+        mongo_database = mongodb_connect()
     except Exception as e:
         print('Error al conectarse con la base de datos')
         print(e)
@@ -51,7 +52,7 @@ def listar_cuentas():
                 return
 
             for (cuenta_id, persona_id, dni, rut, saldo, creacion, vehiculos) in cursor.fetchall():
-                peajes = list(map(lambda b: (b['peaje'], b['descuento']), mongodb_connect()['Bonificaciones'].find({'cuenta':cuenta_id})))
+                peajes = list(map(lambda b: (b['peaje'], b['descuento']), mongo_database['Bonificaciones'].find({'cuenta':cuenta_id})))
                 peajes_list = []
                 for (peaje, descuento) in peajes:
                     cursor.execute("""
@@ -86,7 +87,7 @@ def listar_cuentas():
                             persona_dni;
                     """.format(persona_id))
                     result = cursor.fetchone()
-                    vehiculos += ', ' + result[1] if result else ''
+                    vehiculos += ', ' + result[1] if (result and result[1]) else ''
                     print(f'Cuenta de la persona de DNI {dni}, creada en {creacion}, tiene ${saldo} de saldo, las matriculas de sus vehiculos asociados son: {vehiculos}, y tiene bonificacion en peajes: {peajes}')
             input('Presione enter para continuar...')
 
